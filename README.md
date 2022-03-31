@@ -80,7 +80,7 @@ yarn e2e will run the cypress test but depends on docker to run the tests agains
 yarn e2e
 ```
 
-### .evn
+### .env
 
 Default I set up env for make the local stuff works. DOMAIN will be responsible for shortUrl prefix.
 
