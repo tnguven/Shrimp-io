@@ -1,6 +1,6 @@
 
 set-env:
-	cp env.example .env
+	@[ -f ./.env ] && true || cp env.example .env;
 
 install:
 	yarn install
@@ -8,12 +8,12 @@ install:
 test:
 	yarn lint && \
 	yarn test && \
-	yarn e2e
+	yarn e2e:headless
 
-build-run:
+build-run: set-env
 	docker-compose up --build -d
 
-run-apps:
+run-apps: set-env
 	docker-compose up -d
 
 cleanup:

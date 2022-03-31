@@ -13,7 +13,7 @@
     "build": "lerna run build --stream --concurrency 2",
     "dev": "docker-compose -f docker-compose.dev.yml up -d && yarn lerna run dev --parallel --stream",
     "test": "lerna run test --stream",
-    "e2e": "lerna run --scope @shrimp/client cypress open",
+    "e2e": "lerna run --scope @shrimp/client cypress",
     "e2e:headless": "lerna run --scope @shrimp/client cypress:headless",
     "lint": "lerna run lint --stream --concurrency 2",
     "clean": "lerna run clean --stream --concurrency 2",
