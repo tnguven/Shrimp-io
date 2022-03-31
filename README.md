@@ -5,9 +5,10 @@ used [Next.js](libs/client/README.md)
 for the client-side and an [Express server](libs/server/README.md) in the backend with a simple rest
 API. The codebase uses yarn workspace and manages it with Lerna.
 
-Backend works via sessionToken. When a user send a request to backend, backend will check the
-cookies to prevent the existing user or will generate and send it back to client for the next call.
-I have to add a reverse proxy to make cors happy while playing in local env.
+Backend keeps users previous session with client side pre generated id. When a user send a request
+to backend, backend will check the cookies to prevent the existing user or will generate and send it
+back to client for the next call. I have to add a reverse proxy to make cors happy while playing in
+local env.
 
 ### Main folder structure
 
@@ -43,7 +44,7 @@ yarn test && \
 yarn e2e
 ```
 
-After execution complete we can see the application UI at http://localhost:80.
+After execution complete we can see the application UI at http://localhost
 
 ### Basic commands from the root
 
