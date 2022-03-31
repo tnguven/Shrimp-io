@@ -5,7 +5,7 @@ set-env:
 install:
 	yarn install
 
-test:
+test: install
 	yarn lint && \
 	yarn test && \
 	yarn e2e:headless
@@ -15,9 +15,5 @@ build-run: set-env
 
 run-apps: set-env
 	docker-compose up -d
-
-cleanup:
-	docker system prune && \
-	docker volume rm primary-bid_shrimp-url-data
 
 build-run-test: set-env install build-run test
