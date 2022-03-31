@@ -1,0 +1,14 @@
+.container {
+  max-width: 580px;
+  width: 100%;
+}
+
+.primaryColor {
+  color: var(--primary-color-500)
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}

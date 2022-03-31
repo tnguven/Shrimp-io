@@ -1,0 +1,27 @@
+.col {
+  width: 100%;
+  padding: 40px 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.inputCol {
+  background-color: var(--gray-200);
+}
+
+
+@media screen and (min-width: 1114px) {
+  .inputCol {
+    max-width: 45%;
+    height: 100vh;
+    box-shadow: 1px 0 8px 0 var(--gray-200);
+  }
+
+  .urlListCol {
+    max-width: 55%;
+    padding-top: 114px;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}

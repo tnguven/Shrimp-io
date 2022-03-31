@@ -1,0 +1,32 @@
+.container {
+  max-width: 480px;
+  width: 100%;
+}
+
+.container p {
+  margin-bottom: 58px;
+}
+
+.container h2 {
+  margin-bottom: 58px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.primaryColor {
+  color: var(--primary-color-500)
+}
+
+.logo {
+  margin-bottom: 4em;
+}
+
+.logo img {
+  height: 32px;
+}
+
+.arrowIcon {
+  width: 35px;
+  margin-bottom: -20px;
+  margin-left: 10px;
+}

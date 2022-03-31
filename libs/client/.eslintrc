@@ -1,0 +1,17 @@
+{
+  "extends": ["../../.eslintrc", "next/core-web-vitals"],
+  "plugins": ["testing-library"],
+  "rules": {
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-page-custom-font": "off"
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/__tests__/**/*.ts?(x)",
+        "**/?(*.)+(spec|test).ts?(x)"
+      ],
+      "extends": ["plugin:testing-library/react"]
+    }
+  ]
+}

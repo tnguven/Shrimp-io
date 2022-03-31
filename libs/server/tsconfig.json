@@ -1,0 +1,28 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "./dist",
+    "rootDir": ".",
+    "baseUrl": "src",
+    "paths": {
+      "@config": ["./config"],
+      "@controllers": ["./controllers"],
+      "@data-access": ["./data-access"],
+      "@use-cases": ["./use-cases"],
+      "@short-url": ["./short-url"],
+      "@routes/*": ["./routes/*"],
+      "@db/*": ["./db/*"],
+      "@middlewares/*": ["./middlewares/*"],
+      "@utils/*": ["./utils/*"],
+      "@validations/*": ["./validations/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": [
+    "node_modules",
+    "./dist/**/*",
+    "./__mocks__/**/*",
+    "./__tests__/**/*"
+  ]
+}

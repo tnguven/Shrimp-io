@@ -1,0 +1,37 @@
+{
+  "name": "@shrimp/root",
+  "version": "1.0.0",
+  "description": "url shortening application example",
+  "main": "index.js",
+  "author": "Tan Guven",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "libs/*"
+  ],
+  "scripts": {
+    "build": "lerna run build --stream --concurrency 2",
+    "dev": "kill-port --port 8080,3000 &&yarn lerna run dev --parallel --stream",
+    "test": "lerna run test --stream",
+    "lint": "lerna run lint --stream --concurrency 2",
+    "clean": "lerna run clean --stream --concurrency 2",
+    "clean-all": "lerna run clean-all --stream --concurrency 2 && yarn clean-workspace",
+    "clean-workspace": "rimraf yarn-error.log node_modules",
+    "e2e": "lerna run --scope @shrimp/client cypress:headless",
+    "diff": "lerna diff"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.26",
+    "@typescript-eslint/eslint-plugin": "^5.16.0",
+    "@typescript-eslint/parser": "^5.15.0",
+    "@typescript-eslint/utils": "^5.16.0",
+    "cypress": "^9.5.3",
+    "eslint": "^8.12.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "lerna": "^4.0.0",
+    "prettier": "^2.6.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.6.3"
+  }
+}

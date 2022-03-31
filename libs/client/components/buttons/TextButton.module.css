@@ -1,0 +1,13 @@
+.button {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  margin-right: 10px;
+  background-color: transparent;
+  color: var(--gray-800);
+  width: auto;
+}
+
+.button:hover{
+  background-color: transparent;
+  color: var(--error-500)
+}

@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+@import "normalize.css";
+
+:root {
+  --white: #FFFFFF;
+  --primary-color-50: #F9F5FF;
+  --primary-color-100: #F4EBFF;
+  --primary-color-200: #E9D7FE;
+  --primary-color-300: #D6BBFB;
+  --primary-color-500: #9E77ED;
+  --primary-color-600: #7F56D9;
+  --primary-color-700: #6941C6;
+  --gray-50: #F9FAFB;
+  --gray-100: #F2F4F7;
+  --gray-200: #EAECF0;
+  --gray-300: #D0D5DD;
+  --gray-400: #98A2B3;
+  --gray-500: #667085;
+  --gray-600: #475467;
+  --gray-700: #344054;
+  --gray-800: #1D2939;
+  --error-200: #FEE4E2;
+  --error-300: #FDA29B;
+  --error-500: #F04438;
+  --border-radius: 8px;
+}
+
+body, html {
+  font-family: 'Inter', sans-serif;
+  font-weight: normal;
+  font-size: 16px;
+  background-color: var(--white);
+}
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+h1 {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: var(--gray-800);
+  margin-bottom: 1em;
+}
+
+h2 {
+  font-size: 1.125em;
+  font-weight: 600;
+  color: var(--gray-800);
+  margin-bottom: 1em;
+}
+
+p {
+  font-size: 1em;
+  font-weight: 400;
+  color: var(--gray-500)
+}
+
+@media screen and (max-width: 520px) {
+  body, html {
+    font-size: 14px;
+  }
+  h1 {
+    font-size: 1.24em;
+  }
+  h1 {
+    font-size: 1.05em;
+  }
+}

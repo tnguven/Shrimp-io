@@ -1,0 +1,70 @@
+{
+  "name": "@shrimp/server",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "private": true,
+  "license": "MIT",
+  "workspaces": {
+    "nohoist": [
+      "typescript",
+      "jest",
+      "babel-jest"
+    ]
+  },
+  "scripts": {
+    "start": "node dist/index.js",
+    "test": "jest --detectOpenHandles --runInBand",
+    "test:coverage": "jest --coverage",
+    "lint": "yarn eslint src --ext ts,tsx && yarn typecheck",
+    "typecheck": "tsc --skipLibCheck",
+    "clean": "rimraf globalConfig.json dist *.tsbuildinfo",
+    "clean-all": "yarn clean && rimraf node_modules types",
+    "build": "node esbuild.config.js",
+    "ts-types": "tsc --emitDeclarationOnly --outDir ./libs/server/dist",
+    "dev": "yarn build &&  node dist/index.js",
+    "db:index": "sh scripts/create-db-index.sh"
+  },
+  "dependencies": {
+    "compression": "^1.7.4",
+    "cookie": "^0.4.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-mongo-sanitize": "^2.2.0",
+    "helmet": "^5.0.2",
+    "http-status": "^1.5.0",
+    "joi": "^17.6.0",
+    "mongodb": "^4.4.1",
+    "ramda": "^0.28.0",
+    "uuid": "^8.3.2",
+    "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "@shelf/jest-mongodb": "^2.2.1",
+    "@types/compression": "^1.7.1",
+    "@types/cookie": "^0.4.1",
+    "@types/cookie-parser": "^1.4.2",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^16.11.26",
+    "@types/ramda": "^0.28.3",
+    "@types/supertest": "^2.0.12",
+    "@types/uuid": "^8.3.4",
+    "babel-jest": "^27.5.1",
+    "esbuild": "^0.14.27",
+    "esbuild-plugin-clean": "^0.9.0",
+    "jest": "^27.5.1",
+    "jest-cli": "^27.5.1",
+    "mongodb-memory-server": "^8.4.1",
+    "supertest": "^6.2.2",
+    "ts-node": "^10.7.0",
+    "tsconfig-paths": "^3.14.1",
+    "typescript": "^4.6.3"
+  }
+}

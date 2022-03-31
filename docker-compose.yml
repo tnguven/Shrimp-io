@@ -1,0 +1,80 @@
+version: '3.9'
+
+services:
+  mongodb:
+    image: mongo:5.0.6-focal
+    container_name: mongodb
+    restart: unless-stopped
+    ports:
+      - ${MONGO_PORT}:${MONGO_PORT}
+    volumes:
+      - ./scripts/mongo/:/docker-entrypoint-initdb.d
+      - ./scripts/mongo:/home/mongodb
+      - shrimp-url-data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGO_INITDB_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_INITDB_ROOT_PASSWORD
+      - MONGO_DATABASE=$MONGO_DATABASE
+      - DB_USERNAME=$DB_USERNAME
+      - DB_PASSWORD=$DB_PASSWORD
+    networks:
+      - shrimp-network
+
+  api:
+    image: express-server
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    environment:
+      - DOMAIN=$DOMAIN
+      - SERVER_HOST=$SERVER_HOST
+      - SERVER_PORT=$SERVER_PORT
+      - MONGO_DATABASE=$MONGO_DATABASE
+      - DB_USERNAME=$DB_USERNAME
+      - DB_PASSWORD=$DB_PASSWORD
+      - MONGO_HOSTNAME=$MONGO_HOSTNAME
+      - MONGO_PORT=$MONGO_PORT
+      - NODE_ENV=production
+    command: ['sh', '-c', 'yarn start']
+    networks:
+      - shrimp-network
+    depends_on:
+      - mongodb
+
+  client:
+    image: next-server
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    ports:
+      - ${CLIENT_SERVER_PORT}:${CLIENT_SERVER_PORT}
+    environment:
+      BASE_URL: $SERVER_HOST
+    command: ['sh', '-c', 'node server.js']
+    networks:
+      - shrimp-network
+    depends_on:
+      - api
+
+  cors:
+    build: ./libs/cors
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    networks:
+      - shrimp-network
+    depends_on:
+      - api
+      - client
+
+volumes:
+  shrimp-url-data:
+
+networks:
+  shrimp-network:
+    driver: bridge

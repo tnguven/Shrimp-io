@@ -1,0 +1,137 @@
+[
+  {
+    "sessionToken": "e8b15e19-16f2-4b03-8279-847b503cb14c",
+    "createdAt": "2022-03-27T12:00:50.318Z",
+    "expireAt": "2022-04-10T12:00:50.318Z",
+    "clicks": 0,
+    "url": "https://test.url/test1",
+    "shortUrl": "http://test-env.com/abcd1000",
+    "urlCode": "abcd1000"
+  },
+  {
+    "sessionToken": "e8b15e19-16f2-4b03-8279-847b503cb14c",
+    "createdAt": "2022-03-27T13:00:50.318Z",
+    "expireAt": "2022-04-10T12:00:50.318Z",
+    "clicks": 0,
+    "url": "https://test.url/test2",
+    "shortUrl": "http://test-env.com/abcd1001",
+    "urlCode": "abcd1001"
+  },
+  {
+    "sessionToken": "e8b15e19-16f2-4b03-8279-847b503cb14c",
+    "createdAt": "2022-03-27T14:00:50.318Z",
+    "expireAt": "2022-04-10T12:00:50.318Z",
+    "clicks": 0,
+    "url": "https://test.url/test3",
+    "shortUrl": "http://test-env.com/abcd1002",
+    "urlCode": "abcd1002"
+  },
+  {
+    "sessionToken": "e8b15e19-16f2-4b03-8279-847b503cb14c",
+    "createdAt": "2022-03-27T15:00:50.318Z",
+    "expireAt": "2022-04-10T12:00:50.318Z",
+    "clicks": 0,
+    "url": "https://test.url/test4",
+    "shortUrl": "http://test-env.com/abcd1003",
+    "urlCode": "abcd1003"
+  },
+  {
+    "sessionToken": "e8b15e19-16f2-4b03-8279-847b503cb14c",
+    "createdAt": "2022-03-27T16:00:50.318Z",
+    "expireAt": "2022-04-10T12:00:50.318Z",
+    "clicks": 0,
+    "url": "https://test.url/test5",
+    "shortUrl": "http://test-env.com/abcd1004",
+    "urlCode": "abcd1004"
+  },
+  {
+    "sessionToken": "e8b15e19-16f2-4b03-8279-847b503cb14c",
+    "createdAt": "2022-03-27T17:00:50.318Z",
+    "expireAt": "2022-04-10T12:00:50.318Z",
+    "clicks": 0,
+    "url": "https://test.url/test6",
+    "shortUrl": "http://test-env.com/abcd1005",
+    "urlCode": "abcd1005"
+  },
+  {
+    "sessionToken": "e8b15e19-16f2-4b03-8279-847b503cb14c",
+    "createdAt": "2022-03-27T18:00:50.318Z",
+    "expireAt": "2022-04-10T12:00:50.318Z",
+    "clicks": 0,
+    "url": "https://test.url/test7",
+    "shortUrl": "http://test-env.com/abcd1006",
+    "urlCode": "abcd1006"
+  },
+  {
+    "sessionToken": "e8b15e19-16f2-4b03-8279-847b503cb14c",
+    "createdAt": "2022-03-27T19:00:50.318Z",
+    "expireAt": "2022-04-10T12:00:50.318Z",
+    "clicks": 0,
+    "url": "https://test.url/test8",
+    "shortUrl": "http://test-env.com/abcd1007",
+    "urlCode": "abcd1007"
+  },
+  {
+    "sessionToken": "e8b15e19-16f2-4b03-8279-847b503cb14c",
+    "createdAt": "2022-03-28T12:00:50.318Z",
+    "expireAt": "2022-04-10T12:00:50.318Z",
+    "clicks": 0,
+    "url": "https://test.url/test9",
+    "shortUrl": "http://test-env.com/abcd1008",
+    "urlCode": "abcd1008"
+  },
+  {
+    "sessionToken": "e8b15e19-16f2-4b03-8279-847b503cb14c",
+    "createdAt": "2022-03-29T12:00:50.318Z",
+    "expireAt": "2022-04-10T12:00:50.318Z",
+    "clicks": 0,
+    "url": "https://test.url/test10",
+    "shortUrl": "http://test-env.com/abcd1009",
+    "urlCode": "abcd1009"
+  },
+  {
+    "sessionToken": "e8b15e19-16f2-4b03-8279-847b503cb14c",
+    "createdAt": "2022-03-30T12:00:50.318Z",
+    "expireAt": "2022-04-10T12:00:50.318Z",
+    "clicks": 0,
+    "url": "https://test.url/test11",
+    "shortUrl": "http://test-env.com/abcd1010",
+    "urlCode": "abcd1010"
+  },
+  {
+    "sessionToken": "e8b15e19-16f2-4b03-8279-847b503cb14c",
+    "createdAt": "2022-03-30T13:00:50.318Z",
+    "expireAt": "2022-04-10T12:00:50.318Z",
+    "clicks": 0,
+    "url": "https://test.url/test12",
+    "shortUrl": "http://test-env.com/abcd1011",
+    "urlCode": "abcd1011"
+  },
+  {
+    "sessionToken": "e8b15e19-16f2-4b03-8279-847b503cb14c",
+    "createdAt": "2022-03-30T13:00:50.318Z",
+    "expireAt": "2022-04-10T12:00:50.318Z",
+    "clicks": 0,
+    "url": "https://test.url/test13",
+    "shortUrl": "http://test-env.com/abcd1012",
+    "urlCode": "abcd1012"
+  },
+  {
+    "sessionToken": "e8b15e19-16f2-4b03-8279-847b503cb14c",
+    "createdAt": "2022-03-30T14:00:50.318Z",
+    "expireAt": "2022-04-10T12:00:50.318Z",
+    "clicks": 0,
+    "url": "https://test.url/test14",
+    "shortUrl": "http://test-env.com/abcd1013",
+    "urlCode": "abcd1013"
+  },
+  {
+    "sessionToken": "e8b15e19-16f2-4b03-8279-847b503cb14c",
+    "createdAt": "2022-03-30T15:00:50.318Z",
+    "expireAt": "2022-04-10T12:00:50.318Z",
+    "clicks": 0,
+    "url": "https://test.url/test15",
+    "shortUrl": "http://test-env.com/abcd1014",
+    "urlCode": "abcd1014"
+  }
+]

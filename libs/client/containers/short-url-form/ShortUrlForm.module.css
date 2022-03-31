@@ -1,0 +1,40 @@
+.container {
+  display: block;
+  width: 100%;
+  height: 240px;
+  border-radius: var(--border-radius);
+  perspective: 500px;
+  margin-bottom: 45px;
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease;
+}
+
+.showBack {
+  transform: rotateY(180deg) ;
+}
+
+.front,
+.back {
+  padding: 2em;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  backface-visibility: hidden;
+}
+
+.back {
+  transform: rotateY(180deg);
+  height: 315px;
+}
+
+.block {
+  margin-bottom: 2em;
+}

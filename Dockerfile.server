@@ -1,0 +1,48 @@
+FROM node:16.14-alpine3.15 AS deps
+
+RUN apk update && apk upgrade
+RUN apk add --no-cache libc6-compat
+
+ENV ROOT_DEST_FOLDER=/var/www
+ENV APP_DEST_FOLDER=/var/www/app/server
+
+WORKDIR $ROOT_DEST_FOLDER
+COPY tsconfig.json .
+
+WORKDIR $APP_DEST_FOLDER
+COPY yarn.lock ./
+COPY ./libs/server/package.json ./
+
+RUN yarn install --frozen-lockfile
+
+
+# -------------------------------------------------------------
+FROM node:16.14-alpine3.15 AS build
+
+ENV ROOT_DEST_FOLDER=/var/www
+ENV APP_DEST_FOLDER=/var/www/app/server
+
+WORKDIR $ROOT_DEST_FOLDER
+COPY --from=deps $ROOT_DEST_FOLDER/tsconfig.json ./
+
+WORKDIR $APP_DEST_FOLDER
+COPY --from=deps $APP_DEST_FOLDER/node_modules ./node_modules
+COPY ./libs/server ./
+
+RUN yarn build
+
+
+# -------------------------------------------------------------
+FROM node:16.14-alpine3.15 AS runner
+
+ENV APP_DEST_FOLDER=/var/www/app/server
+
+WORKDIR $APP_DEST_FOLDER
+COPY --from=build $APP_DEST_FOLDER/dist $APP_DEST_FOLDER/dist
+COPY --from=build $APP_DEST_FOLDER/package.json $APP_DEST_FOLDER
+
+USER node
+
+EXPOSE 8080
+
+ENTRYPOINT ["node", "dist/index.js"]

@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 1114px) {
+  .container {
+    flex-direction: row;
+    align-content: stretch;
+  }
+}
