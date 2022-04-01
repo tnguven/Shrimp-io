@@ -1,44 +1,48 @@
+export const makeGetRandomIdByTimestamp = (
+  alphabet: string,
+  idSize: number
+) => {
+  const charSize = alphabet.length;
+  return function getRandomIdByTimestamp(now: number, id = ""): string {
+    if (id.length === idSize) return id;
+    const char = alphabet[now % charSize];
+    return getRandomIdByTimestamp(Math.floor(now / charSize), id + char);
+  };
+};
+
+export const concatId = (alphabet: string) => {
+  return (id: string, index: number) => {
+    id += alphabet[index];
+    return id;
+  };
+};
+
 export function generateRandomId(alphabet: string, size: number) {
   const charSize = alphabet.length;
-  const lastRandChars: number[] = new Array(size);
+  const timestampLength = Math.round(size / 2);
+  const getHalfOfTheId = makeGetRandomIdByTimestamp(alphabet, timestampLength);
+  let lastRandChars: number[] = [];
   let lastGenerationTime = 0;
 
   return () => {
-    const halfOfSize = Math.round(size / 2);
-    let now = Date.now();
+    const now = Date.now();
     const duplicated = now === lastGenerationTime;
     lastGenerationTime = now;
 
-    let id = '';
-    let timeStampSize = halfOfSize;
+    const id = getHalfOfTheId(now);
 
-    // generating half of the id via timestamp to reduce redundancy
-    while (timeStampSize--) {
-      id += alphabet[now % charSize];
-      now = Math.floor(now / charSize);
-    }
-
-    // if the timestamp is same adding one to make it different
     if (duplicated) {
-      let j = halfOfSize - 1;
-
-      for (j; j >= 0 && lastRandChars[j] === charSize - 1; j--) {
-        lastRandChars[j] = 0;
-      }
-
-      lastRandChars[j]++;
-    } else {
-      // else generating the rest of the id
-      let rest = size - halfOfSize;
-
-      while (rest--) {
-        lastRandChars[rest] = Math.floor(Math.random() * charSize);
-      }
+      lastRandChars = lastRandChars.map((num) =>
+        num === charSize - 1 ? 0 : num + 1
+      );
+      return lastRandChars.reduce(concatId(alphabet), id);
     }
 
-    return lastRandChars.reduce((result, index) => {
-      result += alphabet[index];
-      return result;
-    }, id);
+    const randomChars = lastRandChars.length
+      ? lastRandChars
+      : Array.from({ length: size - timestampLength });
+    lastRandChars = randomChars.map(() => Math.floor(Math.random() * charSize));
+
+    return lastRandChars.reduce(concatId(alphabet), id);
   };
 }
