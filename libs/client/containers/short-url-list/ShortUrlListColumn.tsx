@@ -1,42 +1,37 @@
-import React, { useCallback, useRef } from 'react';
-import toast from 'react-hot-toast';
-import { useDispatchUrlList, useUrlListState } from '@/state/urlList.context';
-import { makeDeleteAllUrls } from '@/state/urlList.actions';
-import { ShortUrlList } from './ShortUrlList';
-import { TextButton } from '@/components/buttons/TextButton';
+import React, { useCallback } from "react";
+import toast from "react-hot-toast";
+import { useDispatchUrlList, useUrlListState } from "@/state/urlList.context";
+import { makeDeleteAllUrls } from "@/state/urlList.actions";
+import { ShortUrlList } from "./ShortUrlList";
+import { TextButton } from "@/components/buttons/TextButton";
 
-import styles from './ShortUrlListColumn.module.css';
+import styles from "./ShortUrlListColumn.module.css";
 
 export function ShortUrlListColumn() {
   const dispatch = useDispatchUrlList();
   const { data } = useUrlListState();
   const deleteAllUrls = useCallback(makeDeleteAllUrls(dispatch), [dispatch]);
-  const toggleToaster = useRef(false);
 
   const handleClearConfirmation = () => {
-    if (!toggleToaster.current) {
-      toggleToaster.current = true;
-      const dismissedWithToggle = (id: string) => {
-        toggleToaster.current = false;
-        return () => toast.dismiss(id);
-      };
-      toast(
-        (t) => (
-          <span>
-            Are you sure ? <TextButton onClick={dismissedWithToggle(t.id)}>No</TextButton>
-            <TextButton
-              onClick={() => {
-                dismissedWithToggle(t.id);
-                void deleteAllUrls();
-              }}
-            >
-              Yes
-            </TextButton>
-          </span>
-        ),
-        { duration: 6000 }
-      );
-    }
+    const toastId = "clear_all";
+    const dismissedWithToggle = () => toast.dismiss(toastId);
+    toast(
+      () => (
+        <span>
+          Are you sure ?{" "}
+          <TextButton onClick={dismissedWithToggle}>No</TextButton>
+          <TextButton
+            onClick={() => {
+              dismissedWithToggle();
+              void deleteAllUrls();
+            }}
+          >
+            Yes
+          </TextButton>
+        </span>
+      ),
+      { duration: 6000, id: toastId }
+    );
   };
 
   return (
