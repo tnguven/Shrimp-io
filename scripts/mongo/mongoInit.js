@@ -1,22 +1,18 @@
-function getEnvVariable(envVar, defaultValue) {
-  var command = run('sh', '-c', `printenv --null ${envVar} >/tmp/${envVar}.txt`);
-  if (command != 0) return defaultValue;
-  return cat(`/tmp/${envVar}.txt`).replace(/\0/g, '');
-}
+var adminDb = db.getSiblingDB('admin');
 
-var dbName = getEnvVariable('MONGO_DATABASE', 'test');
+adminDb.auth('admin', 'secret');
 
-db = db.getSiblingDB(dbName);
-
-db.auth(
-  getEnvVariable('MONGO_INITDB_ROOT_USERNAME', 'test'),
-  getEnvVariable('MONGO_INITDB_ROOT_PASSWORD', 'test')
-);
-
-db.createUser({
-  user: getEnvVariable('DB_USERNAME', 'test'),
-  pwd: getEnvVariable('DB_PASSWORD', 'test'),
-  roles: [{ role: 'dbOwner', db: dbName }],
+adminDb.createUser({
+  user: "developer",
+  pwd: "secret",
+  roles: [
+    { role: 'dbOwner', db: 'shrimp' }, // Full access to the shrimp database
+    { role: 'readWrite', db: 'admin' } // Optional: access to admin if needed
+  ],
 });
 
-db.createCollection('shortUrls');
+var shrimpDb = adminDb.getSiblingDB('shrimp');
+
+shrimpDb.createCollection('shortUrls');
+
+print('Initialization script executed successfully');

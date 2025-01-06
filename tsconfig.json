@@ -18,9 +18,8 @@
     "removeComments": true,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
-    "lib": ["ES2020"],
-    "types": ["jest", "node", "@types/jest"],
-    "target": "ES2019",
+    "lib": ["ES2024"],
+    "target": "ESNext",
     "moduleResolution": "node",
     "module": "commonjs"
   },
@@ -28,6 +27,7 @@
     "node_modules/**",
     "dist",
     "bundler",
-    "*.d.ts"
+    "*.d.ts",
+    "**/*.js"
   ]
 }

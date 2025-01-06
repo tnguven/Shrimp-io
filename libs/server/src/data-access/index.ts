@@ -1,6 +1,6 @@
 import { Collection, WithId } from 'mongodb';
 import { getCollection } from '@db/mongoDb';
-import { makeShortUrlDb } from './shortUrlDb';
+import { makeShortUrlDb } from './short-url-db';
 
 export const shortUrlDb = makeShortUrlDb({
   getCollection: getCollection,

@@ -1,3 +1,4 @@
+import { expect, test as it, describe, afterAll, beforeAll, afterEach, beforeEach } from 'vitest';
 import httpStatus from 'http-status';
 import { MongoClient, Db } from 'mongodb';
 import { requestWithDummyCookie, preExistData, preExistDummyToken } from './tools';

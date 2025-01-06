@@ -1,27 +1,23 @@
-version: '3.9'
-
 services:
   mongodb:
-    image: mongo:5.0.6-focal
+    image: mongo:8.0.4-noble
     container_name: mongodb
     restart: unless-stopped
     ports:
-      - ${MONGO_PORT}:${MONGO_PORT}
+      - 27017:27017
     volumes:
       - ./scripts/mongo/:/docker-entrypoint-initdb.d
       - ./scripts/mongo:/home/mongodb
       - shrimp-url-data:/data/db
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=$MONGO_INITDB_ROOT_USERNAME
-      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_INITDB_ROOT_PASSWORD
-      - MONGO_DATABASE=$MONGO_DATABASE
-      - DB_USERNAME=$DB_USERNAME
-      - DB_PASSWORD=$DB_PASSWORD
+      MONGO_INITDB_ROOT_USERNAME: $MONGO_INITDB_ROOT_USERNAME
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_INITDB_ROOT_PASSWORD
     networks:
       - shrimp-network
 
   api:
-    image: express-server
+    image: shrimp/server:latest
+    container_name: api
     restart: always
     build:
       context: .
@@ -44,12 +40,13 @@ services:
     depends_on:
       - mongodb
 
-  client:
-    image: next-server
+  web:
+    image: shrimp/web:latest
+    container_name: web
     restart: always
     build:
       context: .
-      dockerfile: Dockerfile.client
+      dockerfile: Dockerfile.web
     ports:
       - ${CLIENT_SERVER_PORT}:${CLIENT_SERVER_PORT}
     environment:
@@ -65,12 +62,12 @@ services:
     container_name: webserver
     restart: unless-stopped
     ports:
-      - "80:80"
+      - '80:80'
     networks:
       - shrimp-network
     depends_on:
       - api
-      - client
+      - web
 
 volumes:
   shrimp-url-data:

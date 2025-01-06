@@ -1,13 +1,13 @@
 import { serialize } from 'cookie';
 import { v4 } from 'uuid';
-import { Request, Response } from 'types';
+import { Request, Response } from 'global';
 
 const ninetyDay = 60 * 60 * 24 * 90;
-
-const avaliableMethods = ['GET', 'POST', 'PUT'];
+const availableMethods = ['GET', 'POST', 'PUT'];
 
 export function Cookies(req: Request, res: Response, next: () => void) {
-  const isValidMethod = avaliableMethods.includes(req.method);
+  const isValidMethod = availableMethods.includes(req.method);
+
   if (isValidMethod && !req.cookies.token) {
     const token = v4();
     res.setHeader(
@@ -22,5 +22,6 @@ export function Cookies(req: Request, res: Response, next: () => void) {
     );
     req.cookies.token = token;
   }
+
   next();
 }

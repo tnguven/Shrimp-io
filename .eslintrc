@@ -1,8 +1,7 @@
 {
-  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 11,
-    "project": "./tsconfig.json",
+    "project": "./tsconfig.json"
   },
   "extends": [
     "eslint:recommended",
@@ -10,11 +9,10 @@
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "prettier"
   ],
-  "plugins": ["@typescript-eslint", "prettier"],
+  "plugins": ["prettier"],
   "env": {
     "es6": true,
-    "node": true,
-    "jest": true
+    "node": true
   },
   "globals": {
     "Atomics": "readonly",

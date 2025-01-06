@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 import { server } from '@config';
-import { generateRandomId } from '@utils/generateRandomId';
-import { buildMakeShortUrl, ShortUrl } from './shortUrl';
+import { generateRandomId } from '@utils/generate-random-id';
+import { buildMakeShortUrl, ShortUrl } from './short-url';
 
 const URL_ALPHABET = '0123456789abcdefghikmnopqrstvcyz' as const;
 const ID_SIZE = 8;

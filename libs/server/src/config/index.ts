@@ -19,7 +19,7 @@ export const mongoURI =
   process.env.MONGO_URL ||
   `mongodb://${dataBase.username}:${encodeURIComponent(dataBase.password)}@${dataBase.host}:${
     dataBase.port
-  }/${dataBase.dbName}`;
+  }/${dataBase.dbName}?authSource=admin`;
 
 export const server = <const>{
   DOMAIN: process.env.DOMAIN || 'http://localhost',

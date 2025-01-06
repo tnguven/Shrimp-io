@@ -1,48 +1,61 @@
-FROM node:16.14-alpine3.15 AS deps
 
-RUN apk update && apk upgrade
-RUN apk add --no-cache libc6-compat
+FROM shrimp/base-node-builder AS deps
 
-ENV ROOT_DEST_FOLDER=/var/www
-ENV APP_DEST_FOLDER=/var/www/app/server
+WORKDIR /app
+COPY ./package.json \
+  ./pnpm-lock.yaml \
+  ./pnpm-workspace.yaml \
+  ./tsconfig.json \
+  ./
 
-WORKDIR $ROOT_DEST_FOLDER
-COPY tsconfig.json .
-
-WORKDIR $APP_DEST_FOLDER
-COPY yarn.lock ./
+WORKDIR /app/libs/server
 COPY ./libs/server/package.json ./
 
-RUN yarn install --frozen-lockfile
+WORKDIR /app
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store CI=1 pnpm i --config.dedupe-peer-dependents=false
 
 
 # -------------------------------------------------------------
-FROM node:16.14-alpine3.15 AS build
+FROM shrimp/base-node-builder AS build
 
-ENV ROOT_DEST_FOLDER=/var/www
-ENV APP_DEST_FOLDER=/var/www/app/server
+WORKDIR /app
+COPY --from=deps app/tsconfig.json ./
+COPY --from=deps app/package.json ./
+COPY --from=deps app/pnpm-workspace.yaml ./
+COPY --from=deps app/node_modules ./node_modules
 
-WORKDIR $ROOT_DEST_FOLDER
-COPY --from=deps $ROOT_DEST_FOLDER/tsconfig.json ./
-
-WORKDIR $APP_DEST_FOLDER
-COPY --from=deps $APP_DEST_FOLDER/node_modules ./node_modules
+WORKDIR /app/libs/server
+COPY --from=deps app/libs/server/node_modules ./node_modules
 COPY ./libs/server ./
 
-RUN yarn build
+RUN --mount=type=secret,id=build_env,dst=.env pnpm build:prod
+
+WORKDIR /app
+RUN rm -rf node_modules
+
+WORKDIR /app/libs/server
+RUN rm -rf node_modules
+
+RUN --mount=type=secret,id=build_env,dst=.env pnpm install --prod --config.dedupe-peer-dependents=false
 
 
 # -------------------------------------------------------------
-FROM node:16.14-alpine3.15 AS runner
+FROM shrimp/base-node-runner AS runner
 
-ENV APP_DEST_FOLDER=/var/www/app/server
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 api
 
-WORKDIR $APP_DEST_FOLDER
-COPY --from=build $APP_DEST_FOLDER/dist $APP_DEST_FOLDER/dist
-COPY --from=build $APP_DEST_FOLDER/package.json $APP_DEST_FOLDER
+WORKDIR /app
+COPY --link --from=build app/tsconfig.json ./
+COPY --link --from=build app/package.json ./
+COPY --link --from=build app/pnpm-workspace.yaml ./
+COPY --link --chown=api:nodejs --from=build app/node_modules ./node_modules
+
+WORKDIR /app/libs/server
+COPY --link --chown=api:nodejs --from=build app/libs/server/node_modules ./node_modules
+COPY --link --chown=api:nodejs --from=build app/libs/server/dist ./dist
+COPY --link --chown=api:nodejs --from=build app/libs/server/package.json ./
 
 USER node
-
-EXPOSE 8080
 
 ENTRYPOINT ["node", "dist/index.js"]
