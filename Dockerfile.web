@@ -1,0 +1,71 @@
+FROM shrimp/base-node-builder AS deps
+
+WORKDIR /app
+COPY ./package.json \
+  ./pnpm-lock.yaml \
+  ./pnpm-workspace.yaml \
+  ./tsconfig.json \
+  ./
+
+WORKDIR /app/libs/client
+COPY ./libs/client/package.json ./
+
+WORKDIR /app
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store CI=1 pnpm i --config.dedupe-peer-dependents=false
+
+# -------------------------------------------------------------
+FROM shrimp/base-node-builder AS build
+
+WORKDIR /app
+COPY --from=deps app/tsconfig.json ./
+COPY --from=deps app/package.json ./
+COPY --from=deps app/pnpm-workspace.yaml ./
+COPY --from=deps app/node_modules ./node_modules
+
+WORKDIR /app/libs/client
+COPY --from=deps app/libs/client/node_modules ./node_modules
+COPY ./libs/client ./
+
+ENV DOMAIN $DOMAIN
+ENV CLIENT_SERVER_PORT $CLIENT_SERVER_PORT
+ENV BASE_URL $DOMAIN
+
+RUN --mount=type=secret,id=build_env,dst=.env pnpm build
+
+WORKDIR /app
+RUN rm -rf node_modules
+
+WORKDIR /app/libs/client
+RUN rm -rf node_modules
+
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store CI=1 pnpm i --prod --config.dedupe-peer-dependents=false
+
+
+# -------------------------------------------------------------
+FROM shrimp/base-node-runner AS runner
+
+ENV NODE_ENV production
+ENV NEXT_TELEMETRY_DISABLED 1
+ENV BASE_URL $DOMAIN
+ENV CLIENT_SERVER_PORT $CLIENT_SERVER_PORT
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+WORKDIR /app
+COPY --link --from=build app/tsconfig.json ./
+COPY --link --from=build app/package.json ./
+COPY --link --from=build app/pnpm-workspace.yaml ./
+COPY --link --chown=nextjs:nodejs --from=build app/node_modules ./node_modules
+
+WORKDIR /app/libs/client
+COPY --from=build app/libs/client/public ./public
+COPY --from=build app/libs/client/package.json ./package.json
+COPY --from=build --chown=nextjs:nodejs app/libs/client/.next/standalone ./
+COPY --from=build --chown=nextjs:nodejs app/libs/client/.next/static ./.next/static
+
+USER nextjs
+
+EXPOSE $CLIENT_SERVER_PORT
+
+CMD ["node", "server.js"]

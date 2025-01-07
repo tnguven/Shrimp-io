@@ -1,22 +1,18 @@
-version: '3.9'
-
 services:
   mongodb:
-    image: mongo:5.0.6-focal
+    image: mongo:8.0.4-noble
     container_name: mongodb
     restart: unless-stopped
     ports:
       - 27017:27017
     volumes:
+      - shrimp-url-dev-data:/data/db
       - ./scripts/mongo/:/docker-entrypoint-initdb.d
       - ./scripts/mongo:/home/mongodb
-      - shrimp-url-dev-data:/data/db
+
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=$MONGO_INITDB_ROOT_USERNAME
-      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_INITDB_ROOT_PASSWORD
-      - MONGO_DATABASE=$MONGO_DATABASE
-      - DB_USERNAME=$DB_USERNAME
-      - DB_PASSWORD=$DB_PASSWORD
+      MONGO_INITDB_ROOT_USERNAME: "admin"
+      MONGO_INITDB_ROOT_PASSWORD: "secret"
 
 volumes:
   shrimp-url-dev-data:

@@ -1,3 +1,4 @@
+import { expect, test as it, describe, afterAll, beforeAll, afterEach, beforeEach } from 'vitest';
 import httpStatus from 'http-status';
 import { MongoClient, Db } from 'mongodb';
 import {
@@ -12,7 +13,7 @@ import {
   preExistData,
 } from './tools';
 import { connectDb } from '../src/db/mongoDb';
-import { ShortUrl } from '../src/short-url/shortUrl';
+import { ShortUrl } from '../src/short-url/short-url';
 
 describe('shorten route /v1/shorten', () => {
   const routePath = '/v1/shorten';

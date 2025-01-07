@@ -37,11 +37,11 @@ or run the commands manually.
 
 ``` shell
 cp env.example .env && \
-yarn install && \
+pnpm install && \
 docker-compose up --build -d && \
-yarn lint && \
-yarn test && \
-yarn e2e
+pnpm lint && \
+pnpm test && \
+pnpm e2e
 ```
 
 After execution complete we can see the application UI at http://localhost
@@ -66,19 +66,19 @@ yarn dev will start the dev environment to make fast development but connection 
 server doesn't work well.
 
 ``` shell
-yarn dev  # will start mongodb, client and server together.
+pnpm dev  # will start mongodb, client and server together.
 ```
 
 yarn test will run all the unit test and some integration test on server side with supertest.
 
 ``` shell
-yarn e2e
+pnpm e2e
 ```
 
 yarn e2e will run the cypress test but depends on docker to run the tests against.
 
 ``` shell
-yarn e2e
+pnpm e2e
 ```
 
 ### .env

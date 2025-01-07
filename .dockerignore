@@ -16,3 +16,4 @@ Dockerfile
 .dockerignore
 npm-debug.log
 **/.next
+.env

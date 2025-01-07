@@ -15,7 +15,8 @@
       "@db/*": ["./db/*"],
       "@middlewares/*": ["./middlewares/*"],
       "@utils/*": ["./utils/*"],
-      "@validations/*": ["./validations/*"]
+      "@validations/*": ["./validations/*"],
+      "@log/*": ["./logger/*"]
     }
   },
   "include": ["src"],
